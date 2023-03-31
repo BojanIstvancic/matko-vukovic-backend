@@ -7,7 +7,7 @@ const connectDB = require("./db/connect.js");
 
 const authRouter = require("./routes/auth");
 const postsRouter = require("./routes/posts");
-const teachersRouter = require("./routes/teachers");
+const employeesRouter = require("./routes/employees");
 
 // simple route to check if app is deployed
 app.get("/", (req, res) => {
@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/posts", postsRouter);
-app.use("/api/v1/teachers", teachersRouter);
+app.use("/api/v1/employees", employeesRouter);
 
 const port = process.env.PORT || 3000;
 

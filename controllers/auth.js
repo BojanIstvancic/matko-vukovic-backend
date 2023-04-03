@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
+const { BadRequestError, UnauthenticatedError } = require("../errors");
 
 const register = async (req, res) => {
   // register function is not available in front-end
@@ -14,14 +15,13 @@ const login = async (req, res) => {
   const { name, password } = req.body;
 
   if (!name || !password) {
-    // this will be solved on frondend - but this is added just in case
-    return;
+    throw new BadRequestError("Please provide email and password");
   }
 
   const user = await User.findOne({ name });
 
   if (!user) {
-    return;
+    throw new UnauthenticatedError("Invalid Credentials");
   }
 
   res.status(StatusCodes.OK).json({ user });

@@ -15,6 +15,7 @@ const login = async (req, res) => {
   const { name, password } = req.body;
 
   if (!name || !password) {
+    // this will be handled in frontend - added here just in case
     throw new BadRequestError("Please provide email and password");
   }
 

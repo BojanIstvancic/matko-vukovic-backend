@@ -10,14 +10,14 @@ const PostSchema = new mongoose.Schema(
     content: {
       type: String,
       required: [true, "Post content is required"],
-      minlength: 300,
+      // minlength: 300,
       maxlength: 1000,
     },
-    image: {
-      data: Buffer,
-      required: [true, "Post image is required"],
-      contentType: String,
-    },
+    // image: {
+    //   data: Buffer,
+    //   required: [true, "Post image is required"],
+    //   contentType: String,
+    // },
     deletedTime: {
       type: String,
     },

@@ -9,6 +9,9 @@ const authRouter = require("./routes/auth");
 const postsRouter = require("./routes/posts");
 const employeesRouter = require("./routes/employees");
 
+app.use(express.json());
+// JSON parser
+
 // simple route to check if app is deployed
 app.get("/", (req, res) => {
   res.send("App is working...");

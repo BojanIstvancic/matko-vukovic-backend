@@ -18,6 +18,11 @@ const PostSchema = new mongoose.Schema(
     //   required: [true, "Post image is required"],
     //   contentType: String,
     // },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "Please provide user model"],
+    },
     deletedTime: {
       type: String,
     },

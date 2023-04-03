@@ -30,6 +30,11 @@ const EmployeeSchema = new mongoose.Schema(
       ],
       default: ["professor"],
     },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "Please provide user model"],
+    },
     deletedTime: {
       type: String,
     },

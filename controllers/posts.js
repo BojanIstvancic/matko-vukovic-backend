@@ -4,7 +4,7 @@ const { StatusCodes } = require("http-status-codes");
 const getAllPosts = async (req, res) => {
   // const posts = await Post.find({});
 
-  console.log(posts);
+  console.log("123123");
 };
 
 const createPost = async (req, res) => {

@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   // register function is not available in front-end
@@ -31,7 +32,9 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid Password");
   }
 
-  res.status(StatusCodes.OK).json({ user });
+  const token = user.createJWT();
+
+  res.status(StatusCodes.OK).json({ token });
 };
 
 module.exports = {

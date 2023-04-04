@@ -3,7 +3,9 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, InternalServerError } = require("../errors");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find();
+  const { limit } = req.query;
+
+  const posts = await Post.find().limit(Number(limit));
 
   if (!posts) {
     throw new InternalServerError("Something went wrong try again later");

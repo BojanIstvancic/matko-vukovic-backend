@@ -15,7 +15,7 @@ const upload = require("../middleware/upload-image");
 
 router
   .route("/")
-  .post(authenticateUser, upload.single("uploaded_file"), createPost)
+  .post(authenticateUser, upload.single("post_image"), createPost)
   .get(getAllPosts);
 
 router.route("/:id").get(getPost).patch(updatePost).delete(deletePost);

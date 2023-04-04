@@ -11,7 +11,6 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: [true, "Post content is required"],
       minlength: 300,
-      maxlength: 1000,
     },
     image: {
       type: String,

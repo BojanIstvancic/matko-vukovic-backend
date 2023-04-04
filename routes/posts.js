@@ -9,7 +9,12 @@ const {
   deletePost,
 } = require("../controllers/posts.js");
 
-router.route("/").post(createPost).get(getAllPosts);
+const upload = require("../middleware/upload-image");
+
+router
+  .route("/")
+  .post(upload.single("uploaded_file"), createPost)
+  .get(getAllPosts);
 router.route("/:id").get(getPost).patch(updatePost).delete(deletePost);
 
 module.exports = router;

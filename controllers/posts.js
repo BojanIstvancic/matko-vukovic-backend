@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const { StatusCodes } = require("http-status-codes");
+const { BadRequestError } = require("../errors");
 
 const getAllPosts = async (req, res) => {
   // const posts = await Post.find({});
@@ -8,12 +9,17 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
   const { title, content } = req.body;
   const { userId } = req.user;
+  const image = {
+    data: req.file.filename,
+  };
 
-  console.log({ title, content, userId });
+  if (!title || !content || !image) {
+    throw new BadRequestError("Please provide title, content and image");
+  }
 
-  // const post = await Post.create({ title, content, createdBy: userId  });
+  const post = await Post.create({ title, content, image, createdBy: userId });
 
-  // res.status(StatusCodes.CREATED).json({ post });
+  res.status(StatusCodes.CREATED).json({ post });
 };
 
 const getPost = async (req, res) => {

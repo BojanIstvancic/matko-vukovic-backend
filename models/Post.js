@@ -13,11 +13,10 @@ const PostSchema = new mongoose.Schema(
       // minlength: 300,
       maxlength: 1000,
     },
-    // image: {
-    //   data: Buffer,
-    //   required: [true, "Post image is required"],
-    //   contentType: String,
-    // },
+    image: {
+      data: Buffer,
+      contentType: String,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",

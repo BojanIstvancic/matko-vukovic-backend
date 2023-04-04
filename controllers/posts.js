@@ -1,9 +1,17 @@
 const Post = require("../models/post");
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError } = require("../errors");
+const { BadRequestError, InternalServerError } = require("../errors");
 
 const getAllPosts = async (req, res) => {
-  // const posts = await Post.find({});
+  const posts = await Post.find();
+
+  if (!posts) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  console.log(posts[0].image);
+
+  res.status(StatusCodes.OK).json({ posts });
 };
 
 const createPost = async (req, res) => {
@@ -11,6 +19,7 @@ const createPost = async (req, res) => {
   const { userId } = req.user;
   const image = {
     data: req.file.filename,
+    contentType: req.file.mimetype,
   };
 
   if (!title || !content || !image) {
@@ -18,6 +27,10 @@ const createPost = async (req, res) => {
   }
 
   const post = await Post.create({ title, content, image, createdBy: userId });
+
+  if (!post) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
 
   res.status(StatusCodes.CREATED).json({ post });
 };

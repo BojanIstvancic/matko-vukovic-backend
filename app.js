@@ -9,7 +9,6 @@ const express = require("express");
 const app = express();
 
 const connectDB = require("./db/connect.js");
-const authenticateUser = require("./middleware/authentication");
 
 const authRouter = require("./routes/auth");
 const postsRouter = require("./routes/posts");
@@ -30,7 +29,7 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/posts", authenticateUser, postsRouter);
+app.use("/api/v1/posts", postsRouter);
 app.use("/api/v1/employees", employeesRouter);
 
 // if route doesn't exist

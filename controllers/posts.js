@@ -33,7 +33,15 @@ const createPost = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-  res.send("get post");
+  const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.OK).json({ post });
 };
 
 const updatePost = async (req, res) => {

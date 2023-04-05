@@ -5,7 +5,7 @@ const { BadRequestError, InternalServerError } = require("../errors");
 const getAllPosts = async (req, res) => {
   const { limit } = req.query;
 
-  const posts = await Post.find().limit(Number(limit));
+  const posts = await Post.find().limit(Number(limit)).sort("-createdAt");
 
   if (!posts) {
     throw new InternalServerError("Something went wrong try again later");

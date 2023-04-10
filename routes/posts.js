@@ -21,7 +21,7 @@ router
 router
   .route("/:id")
   .get(getPost)
-  .patch(updatePost)
+  .patch(authenticateUser, upload.single("post_image"), updatePost)
   .delete(authenticateUser, deletePost);
 
 module.exports = router;

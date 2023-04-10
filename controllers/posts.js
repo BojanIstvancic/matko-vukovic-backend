@@ -21,8 +21,10 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const { title, content } = req.body;
-  const { userId } = req.user;
+  const {
+    body: { title, content },
+    user: { userId },
+  } = req;
 
   const url = req.protocol + "://" + req.get("host");
   const image = url + "/images/" + req.file.filename;
@@ -53,7 +55,37 @@ const getPost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  res.send("update post");
+  const {
+    body: { title, content },
+    user: { userId },
+    params: { id },
+  } = req;
+
+  const url = req.protocol + "://" + req.get("host");
+  const image = url + "/images/" + req.file.filename;
+
+  if (!title || !content || !image) {
+    throw new BadRequestError("Please provide title, content and image");
+  }
+
+  const post = await Post.findByIdAndUpdate(
+    {
+      _id: id, // filter
+    },
+    {
+      title,
+      content,
+      image,
+      updatedBy: userId,
+    },
+    { new: true, runValidators: true }
+  );
+
+  if (!post) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.OK).json({ post });
 };
 
 const deletePost = async (req, res) => {

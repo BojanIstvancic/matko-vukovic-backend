@@ -12,11 +12,10 @@ const EmployeeSchema = new mongoose.Schema(
       required: [true, "LastName is required"],
       maxlength: 20,
     },
-    // image: {
-    //   data: Buffer,
-    //   required: [true, "Post image is required"],
-    //   contentType: String,
-    // },
+    image: {
+      type: String,
+      required: [true, "Post image is required"],
+    },
     role: {
       type: String,
       enum: [
@@ -35,8 +34,8 @@ const EmployeeSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide user model"],
     },
-    deletedTime: {
-      type: String,
+    deletedAt: {
+      type: Date,
     },
   },
   { timestamps: true }

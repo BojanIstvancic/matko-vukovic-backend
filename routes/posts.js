@@ -18,6 +18,10 @@ router
   .post(authenticateUser, upload.single("post_image"), createPost)
   .get(getAllPosts);
 
-router.route("/:id").get(getPost).patch(updatePost).delete(deletePost);
+router
+  .route("/:id")
+  .get(getPost)
+  .patch(updatePost)
+  .delete(authenticateUser, deletePost);
 
 module.exports = router;

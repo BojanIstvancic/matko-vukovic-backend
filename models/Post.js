@@ -21,8 +21,8 @@ const PostSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide user model"],
     },
-    deletedTime: {
-      type: String,
+    deletedAt: {
+      type: Date,
     },
   },
   { timestamps: true }

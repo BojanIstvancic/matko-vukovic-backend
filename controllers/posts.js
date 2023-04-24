@@ -56,15 +56,19 @@ const getPost = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const {
-    body: { title, content },
+    body: { title, content, post_image },
     user: { userId },
     params: { id },
   } = req;
 
-  const url = req.protocol + "://" + req.get("host");
-  const image = url + "/images/" + req.file.filename;
+  let image = post_image;
 
-  if (!title || !content || !image) {
+  if (req.file) {
+    const url = req.protocol + "://" + req.get("host");
+    image = url + "/images/" + req.file.filename;
+  }
+
+  if (!title || !content) {
     throw new BadRequestError("Please provide title, content and image");
   }
 

@@ -1,9 +1,40 @@
+const Employee = require("../models/Employee");
+const { StatusCodes } = require("http-status-codes");
+const { BadRequestError, InternalServerError } = require("../errors");
+
 const getAllEmployees = async (req, res) => {
   res.send("get all Employees");
 };
 
 const createEmployee = async (req, res) => {
-  res.send("create Employee");
+  const {
+    body: { firstName, lastName, role },
+    user: { userId },
+  } = req;
+
+  const url = req.protocol + "://" + req.get("host");
+
+  const image = url + "/images/" + req.file.filename;
+
+  if (!firstName || !lastName || !role || !image) {
+    throw new BadRequestError(
+      "Please provide first name, last name, role and image"
+    );
+  }
+
+  const employee = await Employee.create({
+    firstName,
+    lastName,
+    role,
+    image,
+    createdBy: userId,
+  });
+
+  if (!employee) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.CREATED).json({ employee });
 };
 
 const getEmployee = async (req, res) => {

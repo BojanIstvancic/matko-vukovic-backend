@@ -9,7 +9,14 @@ const {
   deleteEmployee,
 } = require("../controllers/employees.js");
 
-router.route("/").post(createEmployee).get(getAllEmployees);
+const authenticateUser = require("../middleware/authentication");
+
+const upload = require("../middleware/upload-image");
+
+router
+  .route("/")
+  .post(authenticateUser, upload.single("staff_image"), createEmployee)
+  .get(getAllEmployees);
 router
   .route("/:id")
   .get(getEmployee)

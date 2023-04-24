@@ -3,7 +3,13 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, InternalServerError } = require("../errors");
 
 const getAllEmployees = async (req, res) => {
-  res.send("get all Employees");
+  const employees = await Employee.find({ deletedAt: null });
+
+  if (!employees) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.OK).json({ employees });
 };
 
 const createEmployee = async (req, res) => {

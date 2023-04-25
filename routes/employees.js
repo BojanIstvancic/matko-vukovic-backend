@@ -20,7 +20,7 @@ router
 router
   .route("/:id")
   .get(getEmployee)
-  .patch(updateEmployee)
+  .patch(authenticateUser, upload.single("staff_image"), updateEmployee)
   .delete(authenticateUser, deleteEmployee);
 
 module.exports = router;

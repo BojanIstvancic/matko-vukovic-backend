@@ -21,6 +21,6 @@ router
   .route("/:id")
   .get(getEmployee)
   .patch(updateEmployee)
-  .delete(deleteEmployee);
+  .delete(authenticateUser, deleteEmployee);
 
 module.exports = router;

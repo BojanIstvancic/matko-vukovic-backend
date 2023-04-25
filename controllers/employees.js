@@ -52,7 +52,22 @@ const updateEmployee = async (req, res) => {
 };
 
 const deleteEmployee = async (req, res) => {
-  res.send("delete Employee");
+  const { id } = req.params;
+  console.log(id, "id");
+
+  const employee = await Employee.findByIdAndUpdate(
+    {
+      _id: id, // filter
+    },
+    { deletedAt: new Date().toJSON() }, // update
+    { new: true, runValidators: true } // return modified document
+  );
+
+  if (!employee) {
+    throw NotFoundError(`No employee with the id: ${id}`);
+  }
+
+  res.status(StatusCodes.OK).json({ employee });
 };
 
 module.exports = {

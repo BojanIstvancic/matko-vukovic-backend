@@ -53,7 +53,6 @@ const updateEmployee = async (req, res) => {
 
 const deleteEmployee = async (req, res) => {
   const { id } = req.params;
-  console.log(id, "id");
 
   const employee = await Employee.findByIdAndUpdate(
     {

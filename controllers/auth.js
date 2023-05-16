@@ -20,7 +20,6 @@ const login = async (req, res) => {
   const { name, password } = req.body;
 
   if (!name || !password) {
-    // this will be handled in frontend - added here just in case
     throw new BadRequestError("Please provide name and password");
   }
 
@@ -38,7 +37,15 @@ const login = async (req, res) => {
 
   const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({ user, token });
+  res.status(StatusCodes.OK).json({
+    user: {
+      _id: user._id,
+      firstname: user.firstName,
+      lastName: user.lastName,
+      administrationLevel: user.administrationLevel,
+    },
+    token,
+  });
 };
 
 module.exports = {

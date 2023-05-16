@@ -3,10 +3,15 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 
 const register = async (req, res) => {
-  // register function is not available in front-end
-  const { name, password } = req.body;
+  const { name, password, firstName, lastName, administrationLevel } = req.body;
 
-  const user = await User.create({ name, password });
+  const user = await User.create({
+    name,
+    password,
+    firstName,
+    lastName,
+    administrationLevel,
+  });
 
   res.status(StatusCodes.CREATED).json({ user });
 };
@@ -33,7 +38,7 @@ const login = async (req, res) => {
 
   const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({ token });
+  res.status(StatusCodes.OK).json({ user, token });
 };
 
 module.exports = {

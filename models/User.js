@@ -14,6 +14,21 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minlength: 8,
   },
+  firstName: {
+    type: String,
+    required: [true, "First Name is required"],
+    minlength: 3,
+  },
+  lastName: {
+    type: String,
+    required: [true, "Last Name is required"],
+    minlength: 3,
+  },
+  administrationLevel: {
+    type: String,
+    enum: ["basic", "admin", "super"],
+    default: ["basic"],
+  },
 });
 
 UserSchema.pre("save", async function () {

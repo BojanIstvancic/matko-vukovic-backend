@@ -40,7 +40,7 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({
     user: {
       _id: user._id,
-      firstname: user.firstName,
+      firstName: user.firstName,
       lastName: user.lastName,
       administrationLevel: user.administrationLevel,
     },

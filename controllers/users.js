@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, UnauthenticatedError } = require("../errors");
+const { BadRequestError, InternalServerError } = require("../errors");
 
 const getUser = async (req, res) => {
   const { id } = req.params;
@@ -12,7 +12,7 @@ const getUser = async (req, res) => {
   const user = await User.findOne({ _id: id });
 
   if (!user) {
-    throw new UnauthenticatedError("User with provided id doesn't exist");
+    throw new NotFoundError("User with provided id doesn't exist");
   }
 
   res.status(StatusCodes.OK).json({
@@ -25,6 +25,19 @@ const getUser = async (req, res) => {
   });
 };
 
+const getUsers = async (req, res) => {
+  const users = await User.find();
+
+  if (!users) {
+    throw new InternalServerError(
+      "Something went wrong, please try again later."
+    );
+  }
+
+  res.status(StatusCodes.OK).json({ users });
+};
+
 module.exports = {
   getUser,
+  getUsers,
 };

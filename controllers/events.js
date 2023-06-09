@@ -40,7 +40,15 @@ const createEvent = async (req, res) => {
 };
 
 const getEvent = async (req, res) => {
-  res.status(StatusCodes.OK).send("get event");
+  const { id } = req.params;
+
+  const event = await Event.findById(id);
+
+  if (!event || event.event !== undefined) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.OK).json({ event });
 };
 
 const updateEvent = async (req, res) => {

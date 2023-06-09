@@ -3,7 +3,13 @@ const { BadRequestError } = require("../errors");
 const Event = require("../models/Event");
 
 const getEvents = async (req, res) => {
-  const events = await Event.find({ deletedAt: null }).sort("-createdAt");
+  const cutOffDate = new Date();
+  cutOffDate.setDate(cutOffDate.getDate() - 1);
+
+  const events = await Event.find({
+    deletedAt: null,
+    date: { $gt: cutOffDate },
+  });
 
   if (!events) {
     throw new InternalServerError("Something went wrong try again later");

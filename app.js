@@ -14,6 +14,7 @@ const authRouter = require("./routes/auth");
 const postsRouter = require("./routes/posts");
 const employeesRouter = require("./routes/employees");
 const usersRouter = require("./routes/users.js");
+const eventsRouter = require("./routes/events.js");
 
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -34,6 +35,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/posts", postsRouter);
 app.use("/api/v1/employees", employeesRouter);
 app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/events", eventsRouter);
 
 // if route doesn't exist
 app.use(notFoundMiddleware);

@@ -13,6 +13,10 @@ const {
 
 router.route("/").get(getEvents).post(authenticateUser, createEvent);
 
-router.route("/:id").get(getEvent).patch(updateEvent).delete(deleteEvent);
+router
+  .route("/:id")
+  .get(getEvent)
+  .patch(updateEvent)
+  .delete(authenticateUser, deleteEvent);
 
 module.exports = router;

@@ -48,7 +48,21 @@ const updateEvent = async (req, res) => {
 };
 
 const deleteEvent = async (req, res) => {
-  res.status(StatusCodes.OK).send("delete event");
+  const { id } = req.params;
+
+  const event = await Event.findByIdAndUpdate(
+    {
+      _id: id,
+    },
+    { deletedAt: new Date().toJSON() },
+    { new: true, runValidators: true }
+  );
+
+  if (!event) {
+    throw NotFoundError(`No event with the id: ${id}`);
+  }
+
+  res.status(StatusCodes.OK).json({ event });
 };
 
 module.exports = {

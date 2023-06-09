@@ -4,7 +4,7 @@ const EventSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ["info", "dayOff", "examp"],
+      enum: ["info", "dayOff", "exam"],
       default: ["info"],
     },
     date: {

@@ -16,7 +16,7 @@ router.route("/").get(getEvents).post(authenticateUser, createEvent);
 router
   .route("/:id")
   .get(getEvent)
-  .patch(updateEvent)
+  .patch(authenticateUser, updateEvent)
   .delete(authenticateUser, deleteEvent);
 
 module.exports = router;

@@ -52,7 +52,37 @@ const getEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-  res.status(StatusCodes.OK).send("update event");
+  const {
+    body: { type, date, info, subjectsAffected },
+    user: { userId },
+    params: { id },
+  } = req;
+
+  if (!type || !date || !info || !subjectsAffected) {
+    throw new BadRequestError(
+      "Please provide type, date, info and subjects affected"
+    );
+  }
+
+  const event = await Event.findByIdAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      type,
+      date,
+      info,
+      subjectsAffected,
+      updatedBy: userId,
+    },
+    { new: true, runValidators: true }
+  );
+
+  if (!event) {
+    throw new InternalServerError("Something went wrong try again later");
+  }
+
+  res.status(StatusCodes.OK).json({ event });
 };
 
 const deleteEvent = async (req, res) => {

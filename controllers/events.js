@@ -20,21 +20,19 @@ const getEvents = async (req, res) => {
 
 const createEvent = async (req, res) => {
   const {
-    body: { type, date, info, subjectsAffected },
+    body: { type, date, info, group },
     user: { userId },
   } = req;
 
-  if (!type || !date || !info || !subjectsAffected) {
-    throw new BadRequestError(
-      "Please provide type, date, info and subjects affected"
-    );
+  if (!type || !date || !info || !group) {
+    throw new BadRequestError("Please provide type, date, info and group");
   }
 
   const event = await Event.create({
     type,
     date,
     info,
-    subjectsAffected,
+    group,
     createdBy: userId,
   });
 
@@ -59,15 +57,13 @@ const getEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   const {
-    body: { type, date, info, subjectsAffected },
+    body: { type, date, info, group },
     user: { userId },
     params: { id },
   } = req;
 
-  if (!type || !date || !info || !subjectsAffected) {
-    throw new BadRequestError(
-      "Please provide type, date, info and subjects affected"
-    );
+  if (!type || !date || !info || !group) {
+    throw new BadRequestError("Please provide type, date, info and group");
   }
 
   const event = await Event.findByIdAndUpdate(
@@ -78,7 +74,7 @@ const updateEvent = async (req, res) => {
       type,
       date,
       info,
-      subjectsAffected,
+      group,
       updatedBy: userId,
     },
     { new: true, runValidators: true }

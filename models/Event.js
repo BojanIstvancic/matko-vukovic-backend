@@ -15,7 +15,7 @@ const EventSchema = new mongoose.Schema(
       required: [true, "Post image is required"],
       minlength: 20,
     },
-    subjectsAffected: {
+    group: {
       type: String,
       enum: [
         "all",
